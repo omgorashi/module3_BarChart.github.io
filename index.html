@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Chart Visualization</title>
+    <script src="d3.js"></script>
+</head>
+<body>
+    <div id="chart"></div>
+    <script src="charts.js"></script>
+    <script>
+       
+
+        function barChart(dataset, fillColor) {
+            var svg = d3.select("#chart")
+                        .append("svg")
+                        .attr("width", 400)
+                        .attr("height", 400);
+
+            var yScale = d3.scaleLinear().domain([0, 20]).range([0, 300]);
+
+            svg.selectAll("rect")
+                .data(dataset)
+                .enter()
+                .append("rect")
+                .attr("width", 10)
+                .attr("height",function(d){
+                    return yScale(d.x)
+                })
+                .attr("x",function(d,i){
+                    return i*10
+                })
+                .attr("y",function(d){
+                    return 300-yScale(d.x)
+                })
+                .attr("fill", fillColor);
+
+
+        }
+        barChart(set1, "turquoise");
+        barChart(set2, "blue");
+        barChart(set3, "purple");
+        barChart(set4, "green");
+    </script>
+</body>
+</html>
